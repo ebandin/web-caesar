@@ -9,27 +9,27 @@ form = """
 <html> 
     <head> 
     <style> 
-        form{
+        form {{
             background-color: #eee; 
             padding: 20px; 
             margin: 0 auto; 
             width: 540px; 
             font: 16px sans-serif; 
-            border-radius: 10px; 
-        }
-        textarea {
+            border-radius: 10px;
+        }}
+        textarea {{
             margin: 10px 0; 
             width: 540px; 
             height: 120px; 
-        }
+        }}
     </style> 
     </head> 
     <body> 
 
         <form action = "/hello" method = "post"> 
             <label for="rot"> Rotate by:</label> 
-            <input id="rot" type="text" name="rot"/ value="0"> 
-            <input id="Code-word" type="textarea" name="code_word"/> 
+            <input id="rot" type="text" name="rot" value="0"/> 
+            <h1> <textarea id="Code-word" type="textarea" name="code_word"> {0}</textarea></h1> 
             <input type="submit"/> 
 
         </form> 
@@ -39,18 +39,16 @@ form = """
 
 @app.route("/")
 def index(): 
-    return form 
+    return form.format("Enter your word to be coded")
 #initialize the html 
 
-@app.route("/", methods= ['POST'])
+@app.route("/hello", methods= ['POST'])
 def encrypt(): 
-    rot = request.form['rot']
-    code_word = request.form['code_word']
-    return rotate_string[code_word, rot]
+    rot = int(request.form['rot'])
+    code_word = str(request.form['code_word'])
+    finals = rotate_string(code_word, rot)
+    
+    return form.format(finals)
 
 
-@app.route("/hello", methods = ['POST'])
-def hello(): 
-    code_word = request.form['code_word']
-    pass
 app.run()
