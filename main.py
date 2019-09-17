@@ -39,7 +39,7 @@ form = """
 
 @app.route("/")
 def index(): 
-    return form.format("Enter your word to be coded")
+    return form.format('')
 #initialize the html 
 
 @app.route("/hello", methods= ['POST'])
